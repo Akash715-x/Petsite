@@ -1,0 +1,355 @@
+<html>
+
+<head>
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/themify-icons.css">
+  <link rel="stylesheet" href="css/nice-select.css">
+  <link rel="stylesheet" href="css/flaticon.css">
+  <link rel="stylesheet" href="css/gijgo.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/slicknav.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    function doPrev1(ref, prev) {
+      const [file] = ref.files
+      if (file) {
+        prev.src = URL.createObjectURL(file)
+      }
+    }
+    function doPrev2(ref, prev) {
+      const [file] = ref.files
+      if (file) {
+        prev.src = URL.createObjectURL(file)
+      }
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+
+      $("#btnFetch").click(function () {
+        let em = $("#txtEmail").val();
+        let config = {
+          url: "/fetch-json-shelter-record",
+          type: "get",
+          data: {
+            Email: em,
+            //pwd:pwd
+          }
+        }
+        $.ajax(config).done(function (respJSONAry) {
+          // alert(JSON.stringify(respJSONAry));
+          // alert(""+respJSONAry[0].ppic+"");
+
+          $("#txtName").val(respJSONAry[0].name);
+          $("#txtCont").val(respJSONAry[0].contact);
+          $("#txtAdr").val(respJSONAry[0].address);
+          $("#txtCity").val(respJSONAry[0].city);
+          $("#txtWeb").val(respJSONAry[0].website);
+          $("#txtSin").val(respJSONAry[0].since);
+          $("#txtpet").val(respJSONAry[0].selpets);
+          $("#hdn1").val(respJSONAry[0].idpic);
+          $("#hdn2").val(respJSONAry[0].shelpic);
+          $("#prev1").attr("src", "uploads/" + respJSONAry[0].idpic);
+          $("#prev2").attr("src", "uploads/" + respJSONAry[0].shelpic);
+        }).fail(function (err) {
+          $("#err").html(resp);
+        });
+      });
+    })
+  </script>
+  <script>
+    function doadd(txtpets, txtpet) {
+      var pett = txtpets.value;
+      var option = txtpet.value;
+      var pets = option.includes(pett);
+      if (pets != 1) {
+        txtpet.value = txtpet.value + pett + ",";
+      }
+    }
+  </script>
+
+
+</head>
+
+<body>
+  <header>
+    <div class="header-area ">
+      <div class="header-top_area">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8">
+              <div class="short_contact_list">
+                <ul>
+                  <li><a href="#">+91 78883 44282</a></li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-4 ">
+              <div class="social_media_links">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-pinterest-p"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="sticky-header" class="main-header-area">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-xl-3 col-lg-3">
+              <div class="logo">
+                <a href="index.html">
+                  <img src="img/logo.png" alt="">
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-9">
+              <div class="main-menu  d-none d-lg-block">
+                <nav>
+                  <ul id="navigation">
+                    <li><a href="pet.html">home</a></li>
+                    <li><a href="dash-shelter.html">Dashboard</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mobile_menu d-block d-lg-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="bradcam_area breadcam_bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="bradcam_text text-center">
+            <h3>Shelter Profile</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="container mt-3">
+    <div class="contact-wrap w-100 p-md-5 p-4">
+      <form method="post" enctype="multipart/form-data" class="row g-3">
+        <div class="col-md-9" aria-labelledby="profilePage">
+          <label for="txtEmail" class="form-label" style="margin-top: 90px">Email Id</label>
+          <input type="email" class="form-control" id="txtEmail" name="Email" placeholder="abc@gmail.com" required
+            style="height: 50px" />
+        </div>
+
+        <div class="col-md-3">
+          <button class="boxed-btn4" type="button" id="btnFetch" name="btnFetch"
+            style="margin-top: 110px; margin-left: 50px" value="Fetch Record">
+            Search
+          </button>
+        </div>
+
+        <div class="col-md-6">
+          <label for="txtName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="txtName" name="Name" required style="height: 50px" />
+        </div>
+
+        <div class="col-md-6">
+          <label for="txtContact" class="form-label">Contact Number</label>
+          <input type="text" class="form-control" id="txtCont" name="contact" required style="height: 50px" />
+        </div>
+
+
+        <div class="col-md-9">
+          <label for="inputCity" class="form-label">Shelter Address</label>
+          <input type="text" class="form-control" id="txtAdr" name="Address" placeholder="1234 Main St." required
+            style="height: 50px" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">City/Location</label>
+          <input type="text" class="form-control" id="txtCity" name="City" required style="height: 50px" />
+        </div>
+
+        <div class="col-md-9">
+          <label for="inputCity" class="form-label">Website</label>
+          <input type="text" class="form-control" id="txtWeb" name="Web" placeholder="WWW.example.com" required
+            style="height: 50px" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">Since/Estd.</label>
+          <input type="text" class="form-control" id="txtSin" name="sin" required style="height: 50px" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="txtPets" class="form-label">Pet Types</label>
+          <div>
+            <select multiple name="pets" id="txtPets" onchange="doadd(this,txtpet)">
+              <option value="Cat">Cat</option>
+              <option value="Dog">Dog</option>
+              <option value="Rabbit">Rabbit</option>
+              <option value="Fish">Fish</option>
+              <option value="Parrot">Parrot</option>
+              <option value="Monkey">Monkey</option>
+              <option value="Horse">Horse</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <label for="inputCity" class="form-label">Selected Pets</label>
+          <input type="text" class="form-control" id="txtpet" name="Spet" style="height: 50px" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">Id proof of Shelter</label>
+          <input type="file" class="form-control" id="ppic1" name="ppic1" style="height: 50px"
+            onchange="doPrev1(this,prev1);" />
+          <input type="hidden" id="hdn1" name="hdn1">
+        </div>
+        <div class="col-md-3">
+          <img src="" id="prev1" width="100" height="100" alt="">
+        </div>
+
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">Shelter Inside Pic</label>
+          <input type="file" class="form-control" id="ppic2" name="ppic2" style="height: 50px"
+            onchange="doPrev2(this,prev2);" />
+          <input type="hidden" id="hdn2" name="hdn2">
+        </div>
+        <div class="col-md-3">
+          <img src="" id="prev2" width="100" height="100" alt="">
+        </div>
+
+        <div class="col-4 offset-md-2" style="margin-top: 100px;">
+          <button class="boxed-btn4" type="submit" formaction="/shelter-save">
+            Send to server
+          </button>
+        </div>
+
+        <div class="col-4 offset-md-2" style="margin-top: 100px;">
+          <button class="boxed-btn4" type="submit" formaction="/shelter-update">
+            Modify
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="extraspace" style="margin-top: 50px;"></div>
+
+  <footer class="footer">
+    <div class="footer_top">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3 col-md-6 col-lg-3">
+            <div class="footer_widget">
+              <h3 class="footer_title">
+                Contact Us
+              </h3>
+              <ul class="address_line">
+                <li>+91 78883 44282</li>
+                <li><a href="#">akashdhaliwal715@gmail.Com</a></li>
+                <li>Phulewala,Bathinda</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-3  col-md-6 col-lg-3">
+            <div class="footer_widget">
+              <h3 class="footer_title">
+                Our Services
+              </h3>
+              <ul class="links">
+                <li><a href="#">Pet Insurance</a></li>
+                <li><a href="#">Pet surgeries </a></li>
+                <li><a href="#">Pet Adoption</a></li>
+                <li><a href="#">Dog Insurance</a></li>
+                <li><a href="#">Dog Insurance</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-3  col-md-6 col-lg-3">
+            <div class="footer_widget">
+              <h3 class="footer_title">
+                Quick Link
+              </h3>
+              <ul class="links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Login info</a></li>
+                <li><a href="#">Knowledge Base</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 col-lg-3 ">
+            <div class="footer_widget">
+                <div class="footer_logo">
+                    <a href="#">
+                        <img src="img/logo.png" alt="">
+                    </a>
+
+                    <a class="img mr-4 rounded">
+                        <iframe
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.8807337916064!2d74.95013941511905!3d30.21195128182175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1673849575769!5m2!1sen!2sin"
+                          width="200" height="130" style="border:0;margin-top: 40px;" allowfullscreen="" loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      </a>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="copy-right_text">
+      <div class="container">
+        <div class="bordered_1px"></div>
+        <div class="row">
+          <div class="col-xl-12">
+            <p class="copy_right text-center">
+            <p>
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+              template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                target="_blank">Akash</a>
+
+            </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,296 @@
+<html>
+
+<head>
+    <title>Owner's Profile Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/gijgo.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slicknav.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        function doPrev(ref, prev) {
+            const [file] = ref.files
+            if (file) {
+                prev.src = URL.createObjectURL(file)
+            }
+        }
+        $(document).ready(function () {
+            $("#btnFetch").click(function () {
+                let email = $("#txtEmail").val();
+
+                let config = {
+                    url: "/fetch-json-record",
+                    type: "get",
+                    data: {
+                        Email: email,
+
+                    }
+                }
+                $.ajax(config).done(function (respJSONAry) {
+                    $("#txtName").val(respJSONAry[0].name);
+                    $("#txtCont").val(respJSONAry[0].contact);
+                    $("#txtAdd").val(respJSONAry[0].address);
+                    $("#txtCity").val(respJSONAry[0].city);
+                    $("#prev").attr("src", "uploads/" + respJSONAry[0].ppic);
+                    $("#hdn").val(respJSONAry[0].ppic);
+                    $("#txtPets").val(respJSONAry[0].ptype);
+                }).fail(function (err) {
+                    //$("#err").html(resp);
+                    alert(err);
+                });
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="header-area ">
+            <div class="header-top_area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="short_contact_list">
+                                <ul>
+                                    <li><a href="#">+91 78883 44282</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 ">
+                            <div class="social_media_links">
+                                <a href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-pinterest-p"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="logo">
+                                <a href="index.html">
+                                    <img src="img/logo.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a href="pet.html">home</a></li>
+                                        <li><a href="dash-owner.html">Dashboard</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bradcam_area breadcam_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bradcam_text text-center">
+                        <h3>Owner Profile</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" style="margin-top: 50px;" novalidate method="post"
+            enctype="multipart/form-data">
+            <input type="hidden" id="hdn" name="hdn">
+            <div class="col-md-9">
+                <label for="validationCustom01" class="form-label">Email Address</label>
+                <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="abc@gmail.com"
+                    required style="height: 50px;">
+
+            </div>
+            <div class="col-md-3">
+                <button class="boxed-btn4" style="margin-top: 33px; margin-left: 50px;" id="btnFetch"
+                    type="button">Search</button>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">Name</label>
+                <input type="text" class="form-control" id="txtName" name="txtName" required style="height: 50px;">
+
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustomUsername" class="form-label">Contact Number</label>
+                <div class="input-group has-validation">
+
+                    <input type="text" class="form-control" id="txtCont" name="txtCont"
+                        aria-describedby="inputGroupPrepend" required style="height: 50px;">
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="validationCustom03" class="form-label">Address</label>
+                <input type="text" class="form-control" id="txtAdd" name="txtAdd" placeholder="1234 Main St." required style="height: 50px;">
+
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom04" class="form-label">City</label>
+                <input type="text" class="form-control" id="txtCity" name="txtCity" required style="height: 50px;">
+            </div>
+            <div class="col-md-4">
+                <label for="txtPets" class="form-label">Pet Types</label>
+                <div>
+                    <select multiple name="txtPets" id="txtPets">
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
+                        <option value="Rabbit">Rabbit</option>
+                        <option value="Fish">Fish</option>
+                        <option value="Parrot">Parrot</option>
+                        <option value="Monkey">Monkey</option>
+                        <option value="Horse">Horse</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom05" class="form-label">Profile Pic</label>
+                <input type="file" class="form-control" id="txtPpic" name="ppic" onchange="doPrev(this,prev);" required style="height: 50px;">
+
+
+            </div>
+            <div class="col-md-4">
+                <img src="" id="prev" width="100" height="100" alt="">
+            </div>
+
+
+            <div class="col-4 offset-md-2" style="margin-top: 50px;">
+                <button class="boxed-btn4" type="submit" formaction="/oprofile-save">Submit form</button>
+            </div>
+            <div class="col-4 offset-md-2" style="margin-top: 50px;">
+                <button class="boxed-btn4" type="submit" formaction="/oprofile-update">Update form</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="extraspace" style="margin-top: 100px;"></div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Contact Us
+                            </h3>
+                            <ul class="address_line">
+                                <li>+91 78883 44282</li>
+                                <li><a href="#">akashdhaliwal715@gmail.Com</a></li>
+                                <li>Phulewala,Bathinda</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3  col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Our Services
+                            </h3>
+                            <ul class="links">
+                                <li><a href="#">Pet Insurance</a></li>
+                                <li><a href="#">Pet surgeries </a></li>
+                                <li><a href="#">Pet Adoption</a></li>
+                                <li><a href="#">Dog Insurance</a></li>
+                                <li><a href="#">Dog Insurance</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3  col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Quick Link
+                            </h3>
+                            <ul class="links">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                                <li><a href="#">Login info</a></li>
+                                <li><a href="#">Knowledge Base</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src="img/logo.png" alt="">
+                                </a>
+
+                                <a class="img mr-4 rounded">
+                                    <iframe
+                                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.8807337916064!2d74.95013941511905!3d30.21195128182175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1673849575769!5m2!1sen!2sin"
+                                      width="200" height="130" style="border:0;margin-top: 40px;" allowfullscreen="" loading="lazy"
+                                      referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                  </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="bordered_1px"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                            template is made with <i class="ti-heart" aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Akash</a>
+                            
+                        </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
