@@ -80,7 +80,7 @@ app.get("/db-login", function (req, resp) {
     let data = [req.query.Email, req.query.Pwd];
     mysql.query("select * from users where emailid=? and password=?", data, function (err, result) {
         if (err != null)
-            resp.send(err.message());
+            resp.send(err.message);
 
         else if (result.length == 1) {
             if (result[0].status == 1) {
